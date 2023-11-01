@@ -6,12 +6,24 @@
   border-radius: 5px;
   display: flex;
   justify-content: center;
-
   flex-direction: column;
   padding: 20px;
-  .popup-options {
-  }
+  gap: 10px;
 
-  .popup-option {
+  button {
+    padding: 6px 8px;
+    background-color: none;
+    border: 2px solid #0073b1;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+  div {
+    h4 {
+      margin: 0;
+    }
+    p {
+      margin: 0;
+      font-size: 14px;
+    }
   }
 }
