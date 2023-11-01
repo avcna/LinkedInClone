@@ -6,7 +6,6 @@
   font-family: system-ui;
   color: rgba(0, 0, 0, 0.9);
   position: relative;
-  z-index: -1;
   .profile-info {
     display: flex;
     justify-content: space-between;
@@ -35,9 +34,10 @@
   .edit-btn {
     position: absolute;
     right: 20px;
-    background-color: white;
+    color: red;
     button {
       cursor: pointer;
+      background-color: white;
     }
   }
 }

@@ -7,6 +7,7 @@ const ProfileComponent = ({ currentUser }) => {
 
   const onEdit = () => {
     setIsEdit(!isEdit);
+    console.log(isEdit)
   };
   return (
     <>
