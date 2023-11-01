@@ -2,10 +2,18 @@ import React, { useState, useMemo } from "react";
 import { getPostStatusByEmail } from "../../../api/fireStoreAPIs";
 import "./index.scss";
 import PostCard from "../PostCard.jsx";
+import { useLocation } from "react-router-dom";
 
 const ProfileCard = ({ currentUser, onEdit }) => {
+  let location = useLocation();
   const [allStatus, setAllStatus] = useState([]);
-  useMemo(() => getPostStatusByEmail(setAllStatus), []);
+  useMemo(() => {
+    if (location?.state?.email) {
+      getPostStatusByEmail(setAllStatus, location.state.email);
+    } else {
+      getPostStatusByEmail(setAllStatus, localStorage.getItem("userEmail"));
+    }
+  }, []);
   return (
     <>
       <div className="profile-card">

@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Topbar from "../components/common/Topbar";
 import Home from "../pages/Home";
-import { getCurrentUser } from "../api/fireStoreAPIs";
+import { getUserByEmail } from "../api/fireStoreAPIs";
 
 const HomeLayout = () => {
   const [currentUser, setCurrentUser] = useState([{ name: "", email: "" }]);
   useMemo(() => {
-    getCurrentUser(setCurrentUser);
+    getUserByEmail(setCurrentUser, localStorage.getItem("userEmail"));
   }, []);
 
   return (

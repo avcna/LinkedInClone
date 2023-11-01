@@ -3,11 +3,16 @@ import "./index.scss";
 import { month, date, year, hour, minute } from "../../../helpers/time";
 import { useNavigate } from "react-router-dom";
 
-const PostCard = ({ status, timeStamp, currentUser }) => {
+const PostCard = ({ status, timeStamp, currentUser, userEmail }) => {
   let navigate = useNavigate();
   return (
     <div className="posts-card">
-      <p className="name" onClick={()=> navigate("profile")}>{currentUser}</p>
+      <p
+        className="name"
+        onClick={() => navigate("/profile", { state: { email: userEmail } })}
+      >
+        {currentUser}
+      </p>
       <p className="timestamp">
         {month(timeStamp)} {date(timeStamp)}, {year(timeStamp)}{" "}
         {hour(timeStamp)}:{minute(timeStamp)}

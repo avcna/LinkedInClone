@@ -4,7 +4,6 @@ import "./index.scss";
 import ModalComponent from "../Modal";
 import { PostStatusAPI, getPostStatus } from "../../../api/fireStoreAPIs";
 import PostCard from "../PostCard.jsx";
-import { getCurrentUser } from "../../../api/fireStoreAPIs";
 
 const PostStatus = ({ currentUser }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -46,6 +45,7 @@ const PostStatus = ({ currentUser }) => {
               key={i}
               status={status.status}
               timeStamp={status.timeStamp}
+              userEmail={status.userEmail}
             />
           );
         })}

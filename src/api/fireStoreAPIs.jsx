@@ -46,11 +46,8 @@ export const getPostStatus = (setAllStatus) => {
   });
 };
 
-export const getPostStatusByEmail = (setAllStatus) => {
-  const q = query(
-    dbRef,
-    where("userEmail", "==", localStorage.getItem("userEmail")),
-  );
+export const getPostStatusByEmail = (setAllStatus, email) => {
+  const q = query(dbRef, where("userEmail", "==", email));
   onSnapshot(q, (response) => {
     setAllStatus(
       response.docs.map((docs) => {
@@ -70,17 +67,13 @@ export const postUserData = (data) => {
     });
 };
 
-export const getCurrentUser = (setCurrentUser) => {
-  let userEmail = localStorage.getItem("userEmail");
-  onSnapshot(userRef, (response) => {
+export const getUserByEmail = (setCurrentUser, email) => {
+  const q = query(userRef, where("email", "==", email));
+  onSnapshot(q, (response) => {
     setCurrentUser(
-      response.docs
-        .map((docs) => {
-          return { ...docs.data(), UserId: docs.id };
-        })
-        .filter((docs) => {
-          return docs.email === userEmail;
-        }),
+      response.docs.map((docs) => {
+        return { ...docs.data(), UserId: docs.id };
+      }),
     );
   });
 };

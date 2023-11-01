@@ -1,12 +1,18 @@
 import React, { useMemo, useState, useEffect } from "react";
 import Topbar from "../components/common/Topbar";
 import Profile from "../pages/Profile";
-import { getCurrentUser } from "../api/fireStoreAPIs";
+import { getUserByEmail } from "../api/fireStoreAPIs";
+import { useLocation } from "react-router-dom";
 
 const ProfileLayout = () => {
+  let location = useLocation();
   const [currentUser, setCurrentUser] = useState([{ name: "user", email: "" }]);
   useEffect(() => {
-    getCurrentUser(setCurrentUser);
+    if (location?.state?.email) {
+      getUserByEmail(setCurrentUser, location.state.email);
+    } else {
+      getUserByEmail(setCurrentUser, localStorage.getItem("userEmail"));
+    }
   }, []);
   return (
     <div>
