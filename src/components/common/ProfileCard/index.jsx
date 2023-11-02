@@ -3,6 +3,7 @@ import { getPostStatusByEmail } from "../../../api/fireStoreAPIs";
 import "./index.scss";
 import PostCard from "../PostCard.jsx";
 import { useLocation } from "react-router-dom";
+import { BiPencil } from "react-icons/bi";
 
 const ProfileCard = ({ currentUser, onEdit }) => {
   let location = useLocation();
@@ -17,14 +18,14 @@ const ProfileCard = ({ currentUser, onEdit }) => {
   return (
     <>
       <div className="profile-card">
-        <div className="edit-btn">
-          <button onClick={onEdit}>edit</button>
+        <div className="edit-btn" onClick={onEdit}>
+          <BiPencil />
         </div>
         <div className="profile-info">
           <div>
             <h3 className="username">{currentUser.name}</h3>
             <p className="headline">{currentUser?.headline}</p>
-            <p className="headline">{currentUser?.location}</p>
+            <p className="location">{currentUser?.location}</p>
           </div>
           <div className="right-info">
             <p className="">{currentUser?.college}</p>

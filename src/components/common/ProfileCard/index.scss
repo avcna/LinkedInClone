@@ -12,13 +12,19 @@
     .username {
       font-weight: 600;
       font-size: 24px;
+      margin-top: -10px;
     }
     .headline {
       font-size: 16px;
       margin-top: -25px;
       font-weight: 400;
       width: 350px;
-      line-height: 20px;
+      line-height: 28px;
+    }
+    .location {
+      font-size: 14px;
+      color: #8d8d8d;
+      margin-top: -14px;
     }
     .right-info {
       margin-top: 30px;
@@ -34,11 +40,15 @@
   .edit-btn {
     position: absolute;
     right: 20px;
-    color: red;
-    button {
-      cursor: pointer;
-      background-color: white;
-    }
+    cursor: pointer;
+    border: none;
+    font-size: 20px;
+    border-radius: 100%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 

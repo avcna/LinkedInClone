@@ -28,7 +28,7 @@ const ProfileEdit = ({ onEdit, currentUser }) => {
           placeholder="Name"
           onChange={getInput}
           name="name"
-          value={currentUser.name}
+          defaultValue={currentUser.name}
         />
         <input
           className="common-input"
@@ -36,7 +36,7 @@ const ProfileEdit = ({ onEdit, currentUser }) => {
           placeholder="Headline"
           onChange={getInput}
           name="headline"
-          value={currentUser?.headline}
+          defaultValue={currentUser?.headline}
         />
         <input
           className="common-input"
@@ -44,7 +44,7 @@ const ProfileEdit = ({ onEdit, currentUser }) => {
           placeholder="Location"
           onChange={getInput}
           name="location"
-          value={currentUser?.location}
+          defaultValue={currentUser?.location}
         />
         <input
           className="common-input"
@@ -52,7 +52,7 @@ const ProfileEdit = ({ onEdit, currentUser }) => {
           placeholder="Company"
           onChange={getInput}
           name="company"
-          value={currentUser?.company}
+          defaultValue={currentUser?.company}
         />
         <input
           className="common-input"
@@ -60,7 +60,7 @@ const ProfileEdit = ({ onEdit, currentUser }) => {
           placeholder="College"
           onChange={getInput}
           name="college"
-          value={currentUser?.college}
+          defaultValue={currentUser?.college}
         />
       </div>
       <div className="save-container">
