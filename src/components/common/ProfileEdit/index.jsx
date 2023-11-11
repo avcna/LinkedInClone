@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./index.scss";
 import { editProfile } from "../../../api/fireStoreAPIs";
+import {AiOutlineClose} from "react-icons/ai"
 
 const ProfileEdit = ({ onEdit, currentUser }) => {
   const [editInput, setEditInput] = useState({});
@@ -19,7 +20,7 @@ const ProfileEdit = ({ onEdit, currentUser }) => {
   return (
     <div className="profile-card">
       <div className="edit-btn">
-        <button onClick={onEdit}>Go Back</button>
+        <button onClick={onEdit}><AiOutlineClose/></button>
       </div>
       <div className="profile-edit-inputs">
         <div>

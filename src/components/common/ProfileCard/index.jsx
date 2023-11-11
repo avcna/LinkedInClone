@@ -26,6 +26,9 @@ const ProfileCard = ({ currentUser, onEdit }) => {
             <h3 className="username">{currentUser.name}</h3>
             <p className="headline">{currentUser?.headline}</p>
             <p className="location">{currentUser?.location}</p>
+            <a className="website" href={currentUser?.website} target="_blank">
+              {currentUser?.website}
+            </a>
           </div>
           <div className="right-info">
             <p className="">{currentUser?.college}</p>
@@ -33,6 +36,23 @@ const ProfileCard = ({ currentUser, onEdit }) => {
           </div>
         </div>
       </div>
+      {(currentUser?.about || currentUser?.skills) && (
+        <div className="profile-card">
+          {currentUser?.about && (
+            <>
+              <h3 className="about">About</h3>
+              <p className="p-about">{currentUser?.about}</p>
+            </>
+          )}
+          {currentUser?.skills && (
+            <>
+              <h3 className="about">Skills</h3>
+              <p className="p-about">{currentUser?.skills}</p>
+            </>
+          )}
+        </div>
+      )}
+
       <div className="post-status-main">
         <div>
           {allStatus.map((status, i) => {

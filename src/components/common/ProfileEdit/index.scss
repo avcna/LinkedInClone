@@ -10,10 +10,24 @@ $linkedinBlue2: #0073b1;
   .edit-btn {
     position: absolute;
     right: 20px;
-    background-color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+    background: whitesmoke;
     button {
+      font-size: 24px;
       cursor: pointer;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      border: none;
+     background: transparent;
+     
+     
     }
+  }
+  .edit-btn:hover{
+    background: white;
   }
   .profile-edit-inputs {
     display: grid;
@@ -45,7 +59,7 @@ $linkedinBlue2: #0073b1;
           sans-serif;
         margin: 10px 0px;
       }
-      .textarea{
+      .textarea {
         height: auto;
       }
     }
