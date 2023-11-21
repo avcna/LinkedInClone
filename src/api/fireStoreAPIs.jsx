@@ -10,12 +10,15 @@ import {
   doc,
   updateDoc,
   getDocs,
+  setDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 import getUniqeId from "../helpers/getUniqeId";
 
 const dbRef = collection(firestore, "post");
 const userRef = collection(firestore, "user");
+const likeRef = collection(firestore, "like");
 
 export const PostStatusAPI = (status, currentUser) => {
   const data = {
@@ -115,4 +118,32 @@ export const editProfile = (userId, payload) => {
     .catch((error) => {
       console.log(error);
     });
+};
+
+export const likePost = (userId, postId, isLiked) => {
+  try {
+    const docToLike = doc(likeRef, `${userId}_${postId}`);
+    if (isLiked) {
+      deleteDoc(docToLike);
+    }
+    else{let docToLike = doc(likeRef, `${userId}_${postId}`);
+    setDoc(docToLike, { userId, postId });};
+    
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getLikesByUser = (userId, postId, setLikesCount, setIsLiked) => {
+  try {
+    let likeQuery = query(likeRef, where("postId", "==", postId));
+    onSnapshot(likeQuery, (response) => {
+      let likes = response.docs.map((doc) => doc.data());
+      const isLiked = likes.some((like) => like.userId === userId);
+      setLikesCount(likes.length);
+      setIsLiked(isLiked);
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };

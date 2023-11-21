@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import "./index.scss";
 import { month, date, year, hour, minute } from "../../../helpers/time";
 import { useNavigate } from "react-router-dom";
+import LikeButton from "../LikeButton";
+import { getUserByEmail } from "../../../api/fireStoreAPIs";
 
-const PostCard = ({ status, timeStamp, currentUser, userEmail }) => {
+const PostCard = ({ id, status, timeStamp, currentUser, userEmail }) => {
+  const [user, setUser] = useState("");
+  useMemo(() => {
+    getUserByEmail(setUser, localStorage.getItem("userEmail"));
+  }, []);
   let navigate = useNavigate();
   return (
     <div className="posts-card">
@@ -18,6 +24,8 @@ const PostCard = ({ status, timeStamp, currentUser, userEmail }) => {
         {hour(timeStamp)}:{minute(timeStamp)}
       </p>
       <p className="status">{status}</p>
+      <hr />
+      <LikeButton userId={user[0]?.UserId} postId={id} />
     </div>
   );
 };

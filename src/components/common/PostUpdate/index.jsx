@@ -46,6 +46,7 @@ const PostStatus = ({ currentUser }) => {
               status={status.status}
               timeStamp={status.timeStamp}
               userEmail={status.userEmail}
+              id={status.postId}
             />
           );
         })}
