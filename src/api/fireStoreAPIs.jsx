@@ -125,10 +125,10 @@ export const likePost = (userId, postId, isLiked) => {
     const docToLike = doc(likeRef, `${userId}_${postId}`);
     if (isLiked) {
       deleteDoc(docToLike);
+    } else {
+      let docToLike = doc(likeRef, `${userId}_${postId}`);
+      setDoc(docToLike, { userId, postId });
     }
-    else{let docToLike = doc(likeRef, `${userId}_${postId}`);
-    setDoc(docToLike, { userId, postId });};
-    
   } catch (error) {
     console.log(error);
   }

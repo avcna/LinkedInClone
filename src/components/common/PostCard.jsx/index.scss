@@ -5,13 +5,11 @@
   border: 1px solid #b7b7b7;
   border-radius: 8px;
   width: 500px;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
   padding: 30px 50px 12px;
   font-family: system-ui;
   font-size: 14px;
   font-weight: 400;
+  box-sizing: border-box;
   .name {
     font-family: system-ui;
     font-size: 14px;

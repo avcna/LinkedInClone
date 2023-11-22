@@ -1,21 +1,52 @@
-.wrapper{
+.wrapper {
   display: flex;
   button {
-  border: none;
-  background: transparent;
-  font-size: 20px;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  color: grey;
-  .like-icon{
-    fill:#0072b1;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    color: grey;
+    .like-icon {
+      fill: #0072b1;
+    }
+  }
+  p {
+    color: grey;
+  }
+
+  button:hover {
+    cursor: pointer;
   }
 }
-p{color: grey;}
 
-button:hover {
-  cursor: pointer;
-}}
+.comment-wrapper {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #b7b7b7;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 4px 4px 12px;
 
-
+  .comment-input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    width: 85%;
+  }
+  .submit-btn {
+    border: none;
+    background-color: #0073b1;
+    border-radius: 12px;
+    font-size: 16px;
+    color: white;
+    padding: 12px;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
