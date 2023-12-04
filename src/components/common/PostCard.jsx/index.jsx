@@ -25,7 +25,11 @@ const PostCard = ({ id, status, timeStamp, currentUser, userEmail }) => {
       </p>
       <p className="status">{status}</p>
       <hr />
-      <LikeButton userId={user[0]?.UserId} postId={id} />
+      <LikeButton
+        userId={user[0]?.UserId}
+        postId={id}
+        currentUser={user[0]?.name}
+      />
     </div>
   );
 };

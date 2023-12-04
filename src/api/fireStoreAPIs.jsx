@@ -19,6 +19,7 @@ import getUniqeId from "../helpers/getUniqeId";
 const dbRef = collection(firestore, "post");
 const userRef = collection(firestore, "user");
 const likeRef = collection(firestore, "like");
+const commentRef = collection(firestore, "comment");
 
 export const PostStatusAPI = (status, currentUser) => {
   const data = {
@@ -142,6 +143,33 @@ export const getLikesByUser = (userId, postId, setLikesCount, setIsLiked) => {
       const isLiked = likes.some((like) => like.userId === userId);
       setLikesCount(likes.length);
       setIsLiked(isLiked);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const postComment = (postId, comment, name) => {
+  try {
+    addDoc(commentRef, {
+      name,
+      postId,
+      comment,
+      timeStamp: serverTimestamp(),
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getComment = (postId, setComments) => {
+  try {
+    let comments = query(
+      commentRef,
+      where("postId", "==", postId) && orderBy("timeStamp", "desc"),
+    );
+    onSnapshot(comments, (response) => {
+      setComments(response.docs.map((doc) => doc.data()));
     });
   } catch (error) {
     console.log(error);
