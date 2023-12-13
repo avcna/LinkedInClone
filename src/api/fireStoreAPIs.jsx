@@ -45,7 +45,7 @@ export const getPostStatus = (setAllStatus) => {
     setAllStatus(
       response.docs.map((docs) => {
         return { ...docs.data(), id: docs.id };
-      }),
+      })
     );
   });
 };
@@ -56,7 +56,7 @@ export const getPostStatusByEmail = (setAllStatus, email) => {
     setAllStatus(
       response.docs.map((docs) => {
         return { ...docs.data(), id: docs.id };
-      }),
+      })
     );
   });
 };
@@ -77,7 +77,7 @@ export const getUserByEmail = (setCurrentUser, email) => {
     setCurrentUser(
       response.docs.map((docs) => {
         return { ...docs.data(), UserId: docs.id };
-      }),
+      })
     );
   });
 };
@@ -86,20 +86,44 @@ export const editProfile = (userId, payload) => {
   let userToEdit = doc(userRef, userId);
   const q = query(
     dbRef,
-    where("userEmail", "==", localStorage.getItem("userEmail")),
+    where("userEmail", "==", localStorage.getItem("userEmail"))
+  );
+
+  const qc = query(
+    commentRef,
+    where("userEmail", "==", localStorage.getItem("userEmail"))
   );
 
   updateDoc(userToEdit, payload)
     .then(() => {
       toast.success("Data updated successfully");
 
-      getDocs(q)
+      getDocs(q).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          // Update each document here
+          const documentReference = doc.ref;
+          const dataToUpdate = {
+            currentUser: payload.name,
+          };
+
+          // Update the document
+          updateDoc(documentReference, dataToUpdate)
+            .then(() => {
+              console.log("Document successfully updated");
+            })
+            .catch((error) => {
+              console.error("Error updating document: ", error);
+            });
+        });
+      });
+
+      getDocs(qc)
         .then((querySnapshot) => {
           querySnapshot.forEach((doc) => {
             // Update each document here
             const documentReference = doc.ref;
             const dataToUpdate = {
-              currentUser: payload.name,
+              name: payload.name,
             };
 
             // Update the document
@@ -156,6 +180,7 @@ export const postComment = (postId, comment, name) => {
       postId,
       comment,
       timeStamp: serverTimestamp(),
+      userEmail: localStorage.getItem("userEmail"),
     });
   } catch (error) {
     console.log(error);
@@ -166,7 +191,7 @@ export const getComment = (postId, setComments) => {
   try {
     let comments = query(
       commentRef,
-      where("postId", "==", postId) && orderBy("timeStamp", "desc"),
+      where("postId", "==", postId) && orderBy("timeStamp", "desc")
     );
     onSnapshot(comments, (response) => {
       setComments(response.docs.map((doc) => doc.data()));
