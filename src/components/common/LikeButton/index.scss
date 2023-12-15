@@ -22,14 +22,13 @@
 }
 
 .comment-wrapper {
-  width: 100%;
   border-radius: 12px;
   border: 1px solid #b7b7b7;
-  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 4px 4px 4px 12px;
+  width: 100%;
 
   .comment-input {
     border: none;
@@ -60,6 +59,7 @@
     background-color: #dddddd;
     padding: 12px 16px;
     border-radius: 8px;
+    width: 100%;
     h4 {
       margin: 0 0 8px 0;
     }

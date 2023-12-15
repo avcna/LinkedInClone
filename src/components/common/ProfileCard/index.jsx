@@ -1,13 +1,24 @@
-import React, { useState, useMemo } from "react";
-import { getPostStatusByEmail } from "../../../api/fireStoreAPIs";
+import React, { useState, useMemo, useEffect } from "react";
+import { getPostStatusByEmail, editProfile } from "../../../api/fireStoreAPIs";
 import "./index.scss";
 import PostCard from "../PostCard.jsx";
 import { useLocation } from "react-router-dom";
 import { BiPencil } from "react-icons/bi";
+import { ImageUpload } from "../../../api/ImageUpload.jsx";
 
 const ProfileCard = ({ currentUser, onEdit }) => {
   let location = useLocation();
   const [allStatus, setAllStatus] = useState([]);
+  const [currentImage, setCurrentImage] = useState({});
+  const getImage = (event) => {
+    setCurrentImage(event.target.files[0]);
+  };
+  const uploadPict = () => {
+    ImageUpload(currentImage, currentUser?.UserId);
+  };
+
+  console.log(currentUser);
+
   useMemo(() => {
     if (location?.state?.email) {
       getPostStatusByEmail(setAllStatus, location.state.email);
@@ -15,6 +26,7 @@ const ProfileCard = ({ currentUser, onEdit }) => {
       getPostStatusByEmail(setAllStatus, localStorage.getItem("userEmail"));
     }
   }, []);
+
   return (
     <>
       <div className="profile-card">
@@ -23,6 +35,8 @@ const ProfileCard = ({ currentUser, onEdit }) => {
         </div>
         <div className="profile-info">
           <div>
+            <input type="file" onChange={(e) => getImage(e)} />
+            <button onClick={uploadPict}>upload</button>
             <h3 className="username">{currentUser.name}</h3>
             <p className="headline">{currentUser?.headline}</p>
             <p className="location">{currentUser?.location}</p>
@@ -62,6 +76,8 @@ const ProfileCard = ({ currentUser, onEdit }) => {
                 key={i}
                 status={status.status}
                 timeStamp={status.timeStamp}
+                id={status.postId}
+                userEmail={status.userEmail}
               />
             );
           })}

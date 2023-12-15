@@ -12,6 +12,7 @@ import {
   getDocs,
   setDoc,
   deleteDoc,
+  and,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 import getUniqeId from "../helpers/getUniqeId";
@@ -191,7 +192,8 @@ export const getComment = (postId, setComments) => {
   try {
     let comments = query(
       commentRef,
-      where("postId", "==", postId) && orderBy("timeStamp", "desc")
+      where("postId", "==", postId)
+      // orderBy("timeStamp", "desc")
     );
     onSnapshot(comments, (response) => {
       setComments(response.docs.map((doc) => doc.data()));

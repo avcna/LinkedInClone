@@ -16,7 +16,7 @@ const LikeButton = ({ userId, postId, currentUser }) => {
   const [showComment, setShowComment] = useState(false);
   const [comment, setComment] = useState("");
   const [listComment, setListComment] = useState([]);
-  const handleLike = (userId, postId) => {
+  const handleLike = () => {
     likePost(userId, postId, isLiked);
   };
   const getComments = (event) => {
@@ -34,7 +34,7 @@ const LikeButton = ({ userId, postId, currentUser }) => {
   return (
     <>
       <div className="wrapper">
-        <button onClick={() => handleLike(userId, postId)}>
+        <button onClick={handleLike}>
           {isLiked ? <BiSolidLike className="like-icon" /> : <BiLike />}
         </button>
         <p>{likesCount}</p>
