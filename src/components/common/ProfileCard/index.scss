@@ -9,6 +9,12 @@
   .profile-info {
     display: flex;
     justify-content: space-between;
+    .profile-image{
+      width: 200px;
+      height: 200px;
+      border-radius: 100%;
+      border: black solid 1px;
+    }
     .username {
       font-weight: 600;
       font-size: 24px;

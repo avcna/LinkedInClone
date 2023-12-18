@@ -5,6 +5,7 @@ import PostCard from "../PostCard.jsx";
 import { useLocation } from "react-router-dom";
 import { BiPencil } from "react-icons/bi";
 import { ImageUpload } from "../../../api/ImageUpload.jsx";
+import FileUploadModal from "../FileUploadModal/index.jsx";
 
 const ProfileCard = ({ currentUser, onEdit }) => {
   let location = useLocation();
@@ -16,6 +17,7 @@ const ProfileCard = ({ currentUser, onEdit }) => {
   const uploadPict = () => {
     ImageUpload(currentImage, currentUser?.UserId);
   };
+  const [isEditPhoto, setEditPhoto] = useState(false);
 
   console.log(currentUser);
 
@@ -35,6 +37,18 @@ const ProfileCard = ({ currentUser, onEdit }) => {
         </div>
         <div className="profile-info">
           <div>
+            <img
+              src={currentUser?.imageLink}
+              alt=""
+              className="profile-image"
+              onClick={() => setEditPhoto(!isEditPhoto)}
+            />
+            {isEditPhoto && (
+              <FileUploadModal
+                stateOpen={isEditPhoto}
+                setStateOpen={setEditPhoto}
+              />
+            )}
             <input type="file" onChange={(e) => getImage(e)} />
             <button onClick={uploadPict}>upload</button>
             <h3 className="username">{currentUser.name}</h3>
