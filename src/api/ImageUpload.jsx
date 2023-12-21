@@ -16,7 +16,7 @@ export const ImageUpload = (file, id) => {
     },
     () =>
       getDownloadURL(uploadTask.snapshot.ref).then((response) =>
-        editProfile(id, { imageLink: response })
-      )
+        editProfile(id, { imageLink: response }),
+      ),
   );
 };

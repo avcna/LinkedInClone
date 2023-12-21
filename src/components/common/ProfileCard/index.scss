@@ -9,12 +9,19 @@
   .profile-info {
     display: flex;
     justify-content: space-between;
-    .profile-image{
+    .wrapper-profile-image{
       width: 200px;
       height: 200px;
       border-radius: 100%;
-      border: black solid 1px;
-    }
+      border: WHITE solid 10px;
+      overflow: hidden;
+      .profile-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      
+    }}
+    
     .username {
       font-weight: 600;
       font-size: 24px;

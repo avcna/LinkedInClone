@@ -12,7 +12,7 @@ const HomeLayout = () => {
   return (
     <div>
       {/* <p>{currentUser[0].name}</p> */}
-      <Topbar />
+      <Topbar currentUser={currentUser[0]} />
       <Home currentUser={currentUser[0]} />
     </div>
   );

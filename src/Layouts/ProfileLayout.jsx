@@ -16,7 +16,7 @@ const ProfileLayout = () => {
   }, []);
   return (
     <div>
-      <Topbar />
+      <Topbar currentUser={currentUser[0]} />
       <Profile currentUser={currentUser[0]} />
     </div>
   );

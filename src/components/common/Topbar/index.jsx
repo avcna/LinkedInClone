@@ -7,7 +7,7 @@ import { BsBriefcase } from "react-icons/bs";
 import { BiSearchAlt2, BiMessageDots, BiBell } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { ProfilePopup } from "../ProfilePopup";
-const Topbar = () => {
+const Topbar = ({ currentUser }) => {
   let navigate = useNavigate();
 
   const [popupVisibility, setPopupVisibility] = useState(false);
@@ -60,12 +60,14 @@ const Topbar = () => {
           onClick={() => goToRoute("/")}
         />
       </div>
-      <img
-        className="linkedin-logo"
-        src={LinkedLogo}
-        alt="linkedin"
-        onClick={displayPopup}
-      />
+      <div className="wrapper-profile-logo">
+        <img
+          className="profile-logo"
+          src={currentUser?.imageLink}
+          alt="linkedin"
+          onClick={displayPopup}
+        />
+      </div>
     </div>
   );
 };
