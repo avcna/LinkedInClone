@@ -29,6 +29,7 @@ export const PostStatusAPI = (status, currentUser) => {
     userEmail: localStorage.getItem("userEmail"),
     postId: getUniqeId(),
     currentUser: currentUser.name,
+    postUserId: currentUser.UserId,
   };
 
   addDoc(dbRef, data)
@@ -46,7 +47,7 @@ export const getPostStatus = (setAllStatus) => {
     setAllStatus(
       response.docs.map((docs) => {
         return { ...docs.data(), id: docs.id };
-      }),
+      })
     );
   });
 };
@@ -57,7 +58,7 @@ export const getPostStatusByEmail = (setAllStatus, email) => {
     setAllStatus(
       response.docs.map((docs) => {
         return { ...docs.data(), id: docs.id };
-      }),
+      })
     );
   });
 };
@@ -78,7 +79,18 @@ export const getUserByEmail = (setCurrentUser, email) => {
     setCurrentUser(
       response.docs.map((docs) => {
         return { ...docs.data(), UserId: docs.id };
-      }),
+      })
+    );
+  });
+};
+
+export const getAllUsers = (setAllUsers) => {
+  const q = query(userRef, orderBy("name", "asc"));
+  onSnapshot(q, (response) => {
+    setAllUsers(
+      response.docs.map((docs) => {
+        return { ...docs.data(), id: docs.id };
+      })
     );
   });
 };
@@ -87,12 +99,12 @@ export const editProfile = (userId, payload) => {
   let userToEdit = doc(userRef, userId);
   const q = query(
     dbRef,
-    where("userEmail", "==", localStorage.getItem("userEmail")),
+    where("userEmail", "==", localStorage.getItem("userEmail"))
   );
 
   const qc = query(
     commentRef,
-    where("userEmail", "==", localStorage.getItem("userEmail")),
+    where("userEmail", "==", localStorage.getItem("userEmail"))
   );
 
   updateDoc(userToEdit, payload)
@@ -192,7 +204,7 @@ export const getComment = (postId, setComments) => {
   try {
     let comments = query(
       commentRef,
-      where("postId", "==", postId),
+      where("postId", "==", postId)
       // orderBy("timeStamp", "desc")
     );
     onSnapshot(comments, (response) => {
