@@ -63,6 +63,31 @@ export const getPostStatusByEmail = (setAllStatus, email) => {
   });
 };
 
+export const editStatus = (postId, payload) => {
+  let docToEdit = doc(dbRef, postId);
+  try {
+    updateDoc(docToEdit, {
+      status: payload,
+      timeStamp: serverTimestamp(),
+    }).then(() => {
+      toast.success("Data updated successfully");
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteStatus = (id) => {
+  let docToEdit = doc(dbRef, id);
+  try {
+    deleteDoc(docToEdit).then(() => {
+      toast.success("Data deleted successfully");
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const postUserData = (data) => {
   addDoc(userRef, data)
     .then(() => {

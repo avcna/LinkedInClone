@@ -86,6 +86,7 @@ const ProfileCard = ({ currentUser, onEdit }) => {
                 timeStamp={status.timeStamp}
                 id={status.postId}
                 userEmail={status.userEmail}
+                postUserId={status.postUserId}
               />
             );
           })}

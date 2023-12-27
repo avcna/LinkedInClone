@@ -2,18 +2,39 @@ import { useEffect, useState, useMemo } from "react";
 import React from "react";
 import "./index.scss";
 import ModalComponent from "../Modal";
-import { PostStatusAPI, getPostStatus } from "../../../api/fireStoreAPIs";
+import {
+  PostStatusAPI,
+  getPostStatus,
+  editStatus,
+  deleteStatus,
+} from "../../../api/fireStoreAPIs";
 import PostCard from "../PostCard.jsx";
 
 const PostStatus = ({ currentUser }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [status, setStatus] = useState("");
   const [allStatus, setAllStatus] = useState([]);
+  const [isEdit, setIsEdit] = useState(false);
+  const [currentPost, setCurrentPost] = useState({});
 
   const sendStatus = async () => {
-    await PostStatusAPI(status, currentUser);
+    if (isEdit) {
+      await editStatus(currentPost.id, status);
+    } else {
+      await PostStatusAPI(status, currentUser);
+    }
     await setModalOpen(false);
     await setStatus("");
+  };
+  const editStatusHandle = (post) => {
+    setStatus(post.status);
+    setModalOpen(true);
+    setIsEdit(true);
+    setCurrentPost(post);
+  };
+
+  const handleDelete = (id) => {
+    deleteStatus(id);
   };
   useMemo(() => {
     getPostStatus(setAllStatus);
@@ -35,6 +56,8 @@ const PostStatus = ({ currentUser }) => {
           status={status}
           setStatus={setStatus}
           sendStatus={sendStatus}
+          isEdit={isEdit}
+          setIsEdit={setIsEdit}
         />
       </div>
       <div>
@@ -48,6 +71,8 @@ const PostStatus = ({ currentUser }) => {
               userEmail={status.userEmail}
               id={status.postId}
               postUserId={status.postUserId}
+              editStatus={() => editStatusHandle(status)}
+              deleteStatus={() => handleDelete(status.id)}
             />
           );
         })}
