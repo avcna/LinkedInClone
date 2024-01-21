@@ -41,41 +41,43 @@ const PostStatus = ({ currentUser }) => {
   }, []);
   return (
     <div className="base">
-      <div className="post-status">
-        <button
-          className="open-post-modal"
-          onClick={() => {
-            setModalOpen(true);
-          }}
-        >
-          Start a Post{" "}
-        </button>
-        <ModalComponent
-          modalOpen={modalOpen}
-          setModalOpen={setModalOpen}
-          status={status}
-          setStatus={setStatus}
-          sendStatus={sendStatus}
-          isEdit={isEdit}
-          setIsEdit={setIsEdit}
-        />
-      </div>
       <div>
-        {allStatus.map((status, i) => {
-          return (
-            <PostCard
-              currentUser={status.currentUser}
-              key={i}
-              status={status.status}
-              timeStamp={status.timeStamp}
-              userEmail={status.userEmail}
-              id={status.postId}
-              postUserId={status.postUserId}
-              editStatus={() => editStatusHandle(status)}
-              deleteStatus={() => handleDelete(status.id)}
-            />
-          );
-        })}
+        <div className="post-status">
+          <button
+            className="open-post-modal"
+            onClick={() => {
+              setModalOpen(true);
+            }}
+          >
+            Start a Post{" "}
+          </button>
+          <ModalComponent
+            modalOpen={modalOpen}
+            setModalOpen={setModalOpen}
+            status={status}
+            setStatus={setStatus}
+            sendStatus={sendStatus}
+            isEdit={isEdit}
+            setIsEdit={setIsEdit}
+          />
+        </div>
+        <div>
+          {allStatus.map((status, i) => {
+            return (
+              <PostCard
+                currentUser={status.currentUser}
+                key={i}
+                status={status.status}
+                timeStamp={status.timeStamp}
+                userEmail={status.userEmail}
+                id={status.postId}
+                postUserId={status.postUserId}
+                editStatus={() => editStatusHandle(status)}
+                deleteStatus={() => handleDelete(status.id)}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );

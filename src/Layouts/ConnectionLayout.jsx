@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import Topbar from "../components/common/Topbar";
-import Home from "../pages/Home";
 import { getUserByEmail } from "../api/fireStoreAPIs";
+import Connections from "../pages/Connections";
 
-const HomeLayout = () => {
+const ConnectionLayout = () => {
   const [currentUser, setCurrentUser] = useState([{ name: "", email: "" }]);
   useMemo(() => {
     getUserByEmail(setCurrentUser, localStorage.getItem("userEmail"));
@@ -12,9 +12,9 @@ const HomeLayout = () => {
   return (
     <div>
       <Topbar currentUser={currentUser[0]} />
-      <Home currentUser={currentUser[0]} />
+      <Connections />
     </div>
   );
 };
 
-export default HomeLayout;
+export default ConnectionLayout;

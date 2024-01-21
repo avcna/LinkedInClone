@@ -42,7 +42,7 @@ const Topbar = ({ currentUser }) => {
         <FiUsers
           size={30}
           className="react-icon"
-          onClick={() => goToRoute("/")}
+          onClick={() => goToRoute("/connections")}
         />
         <BsBriefcase
           size={30}

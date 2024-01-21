@@ -1,17 +1,42 @@
-import React, { useState, useMemo, useEffect } from "react";
-import { getPostStatusByEmail, editProfile } from "../../../api/fireStoreAPIs";
+import React, { useState, useMemo } from "react";
+import {
+  getPostStatusByEmail,
+  deleteStatus,
+  editStatus,
+} from "../../../api/fireStoreAPIs";
 import "./index.scss";
 import PostCard from "../PostCard.jsx";
 import { useLocation } from "react-router-dom";
 import { BiPencil } from "react-icons/bi";
 import FileUploadModal from "../FileUploadModal/index.jsx";
+import ModalComponent from "../Modal/index.jsx";
 
 const ProfileCard = ({ currentUser, onEdit }) => {
   let location = useLocation();
   const [allStatus, setAllStatus] = useState([]);
   const [isEditPhoto, setEditPhoto] = useState(false);
 
-  console.log(currentUser);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [status, setStatus] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
+  const [currentPost, setCurrentPost] = useState({});
+
+  const handleDelete = (id) => {
+    deleteStatus(id);
+  };
+
+  const sendStatus = async () => {
+    await editStatus(currentPost.id, status);
+    await setModalOpen(false);
+    await setStatus("");
+  };
+
+  const editStatusHandle = (post) => {
+    setStatus(post.status);
+    setModalOpen(true);
+    setIsEdit(true);
+    setCurrentPost(post);
+  };
 
   useMemo(() => {
     if (location?.state?.email) {
@@ -23,8 +48,24 @@ const ProfileCard = ({ currentUser, onEdit }) => {
 
   return (
     <>
+      <ModalComponent
+        modalOpen={modalOpen}
+        setModalOpen={setModalOpen}
+        status={status}
+        setStatus={setStatus}
+        sendStatus={sendStatus}
+        isEdit={isEdit}
+        setIsEdit={setIsEdit}
+      />
+
       <div className="profile-card">
-        <div className="edit-btn" onClick={onEdit}>
+        <div
+          onClick={onEdit}
+          className={`${
+            currentUser.email !== localStorage.getItem("userEmail") &&
+            "visibility"
+          } edit-btn`}
+        >
           <BiPencil />
         </div>
         <div className="profile-info">
@@ -87,6 +128,8 @@ const ProfileCard = ({ currentUser, onEdit }) => {
                 id={status.postId}
                 userEmail={status.userEmail}
                 postUserId={status.postUserId}
+                editStatus={() => editStatusHandle(status)}
+                deleteStatus={() => handleDelete(status.id)}
               />
             );
           })}

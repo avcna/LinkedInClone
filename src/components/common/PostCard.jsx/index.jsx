@@ -23,7 +23,7 @@ const PostCard = ({
   useMemo(() => {
     getUserByEmail(setUser, localStorage.getItem("userEmail"));
     getAllUsers(setAllUser);
-    console.log(allUser);
+    console.log(userEmail != localStorage.getItem("userEmail"));
   }, []);
   let navigate = useNavigate();
   return (
@@ -55,10 +55,20 @@ const PostCard = ({
           </div>
         </div>
         <div>
-          <button onClick={editStatus}>
+          <button
+            onClick={editStatus}
+            className={`${
+              userEmail !== localStorage.getItem("userEmail") && "visibility"
+            } `}
+          >
             <MdOutlineModeEditOutline />
           </button>
-          <button onClick={deleteStatus}>
+          <button
+            onClick={deleteStatus}
+            className={`${
+              userEmail !== localStorage.getItem("userEmail") && "visibility"
+            } `}
+          >
             <RiDeleteBin6Line />
           </button>
         </div>
