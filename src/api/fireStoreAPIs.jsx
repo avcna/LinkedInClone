@@ -21,6 +21,7 @@ const dbRef = collection(firestore, "post");
 const userRef = collection(firestore, "user");
 const likeRef = collection(firestore, "like");
 const commentRef = collection(firestore, "comment");
+const connectionRef = collection(firestore, "connections");
 
 export const PostStatusAPI = (status, currentUser) => {
   const data = {
@@ -238,4 +239,19 @@ export const getComment = (postId, setComments) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const addConnection = (currUser, target) => {
+  try {
+    let connectionToAdd = doc(connectionRef, `${currUser}_${target}`);
+    setDoc(connectionToAdd, { currUser, target });
+    toast.success("Connection Added!");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getConnection = (currUser) => {
+  try {
+  } catch (error) {}
 };
