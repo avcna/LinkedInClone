@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from "react";
+import ConnectionCard from "./common/Connection";
+import { getAllUsers } from "../api/fireStoreAPIs";
 import "../Sass/ConnectionsComponent.scss";
-import { addConnection, getAllUsers } from "../api/fireStoreAPIs";
 
 const ConnectionsComponent = ({ currentUser }) => {
   const [allUser, setAllUser] = useState([]);
-  const connectTo = (id) => {
-    addConnection(currentUser?.UserId, id);
-  };
-  useEffect(() => getAllUsers(setAllUser), []);
+  useEffect(() => {
+    getAllUsers(setAllUser);
+  }, []);
   return (
     <div className="card">
       {allUser.map((user) => (
-        <div className="card-item" hidden={currentUser?.UserId == user.id}>
-          <div className="wrapper-profile-image">
-            {" "}
-            <img src={user?.imageLink} alt="" className="profile-image" />
-          </div>
-          <p>{user?.name}</p>
-          <p>{user?.headline}</p>
-          <button onClick={() => connectTo(user?.id)}>Connect</button>
-        </div>
+        <ConnectionCard
+          key={user.id}
+          userId={currentUser?.UserId}
+          id={user?.id}
+          name={user?.name}
+          imageLink={user?.imageLink}
+          headline={user?.headline}
+        />
       ))}
     </div>
   );

@@ -251,7 +251,15 @@ export const addConnection = (currUser, target) => {
   }
 };
 
-export const getConnection = (currUser) => {
+export const getConnection = (currUser, target) => {
   try {
-  } catch (error) {}
+    let connectionsRef = query(connectionRef, where("target", "==", target));
+    onSnapshot(connectionsRef, (response) => {
+      let connection = response.docs.map((doc) => doc.data());
+      const isConnected = connection.some((con) => con.currUser === currUser);
+      console.log(isConnected);
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };
