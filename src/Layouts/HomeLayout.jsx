@@ -11,7 +11,7 @@ const HomeLayout = () => {
 
   return (
     <div>
-      <Topbar currentUser={currentUser[0]} />
+      <Topbar />
       <Home currentUser={currentUser[0]} />
     </div>
   );

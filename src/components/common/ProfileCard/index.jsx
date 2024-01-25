@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
   getPostStatusByEmail,
   deleteStatus,
@@ -38,7 +38,7 @@ const ProfileCard = ({ currentUser, onEdit }) => {
     setCurrentPost(post);
   };
 
-  useMemo(() => {
+  useEffect(() => {
     if (location?.state?.email) {
       getPostStatusByEmail(setAllStatus, location.state.email);
     } else {
@@ -87,6 +87,7 @@ const ProfileCard = ({ currentUser, onEdit }) => {
             )}
 
             <h3 className="username">{currentUser.name}</h3>
+
             <p className="headline">{currentUser?.headline}</p>
             <p className="location">{currentUser?.location}</p>
             <a className="website" href={currentUser?.website} target="_blank">
@@ -118,18 +119,19 @@ const ProfileCard = ({ currentUser, onEdit }) => {
 
       <div className="post-status-main">
         <div>
-          {allStatus.map((status, i) => {
+          {allStatus?.map((status, i) => {
             return (
               <PostCard
-                currentUser={status.currentUser}
+                currentUserName={status?.currentUser}
+                currentUserId={currentUser?.UserId}
                 key={i}
-                status={status.status}
-                timeStamp={status.timeStamp}
-                id={status.postId}
-                userEmail={status.userEmail}
-                postUserId={status.postUserId}
+                status={status?.status}
+                timeStamp={status?.timeStamp}
+                userEmail={status?.userEmail}
+                id={status?.postId}
+                postUserId={status?.postUserId}
                 editStatus={() => editStatusHandle(status)}
-                deleteStatus={() => handleDelete(status.id)}
+                deleteStatus={() => handleDelete(status?.id)}
               />
             );
           })}

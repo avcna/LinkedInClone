@@ -61,6 +61,7 @@ export const getPostStatusByEmail = (setAllStatus, email) => {
         return { ...docs.data(), id: docs.id };
       })
     );
+    // console.log(response);
   });
 };
 
@@ -91,8 +92,9 @@ export const deleteStatus = (id) => {
 
 export const postUserData = (data) => {
   addDoc(userRef, data)
-    .then(() => {
+    .then((res) => {
       toast.success("Data added successfully");
+      addConnection(res.id, res.id);
     })
     .catch((error) => {
       console.log(error);
@@ -245,19 +247,18 @@ export const addConnection = (currUser, target) => {
   try {
     let connectionToAdd = doc(connectionRef, `${currUser}_${target}`);
     setDoc(connectionToAdd, { currUser, target });
-    toast.success("Connection Added!");
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getConnection = (currUser, target) => {
+export const getConnection = (currUser, target, setConnection) => {
   try {
     let connectionsRef = query(connectionRef, where("target", "==", target));
     onSnapshot(connectionsRef, (response) => {
       let connection = response.docs.map((doc) => doc.data());
       const isConnected = connection.some((con) => con.currUser === currUser);
-      console.log(isConnected);
+      setConnection(isConnected);
     });
   } catch (error) {
     console.log(error);

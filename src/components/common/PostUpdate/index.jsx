@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import React from "react";
 import "./index.scss";
 import ModalComponent from "../Modal";
@@ -7,6 +7,7 @@ import {
   getPostStatus,
   editStatus,
   deleteStatus,
+  getConnection,
 } from "../../../api/fireStoreAPIs";
 import PostCard from "../PostCard.jsx";
 
@@ -16,6 +17,7 @@ const PostStatus = ({ currentUser }) => {
   const [allStatus, setAllStatus] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [currentPost, setCurrentPost] = useState({});
+  // const [isConnected, setIsConnected] = useState("");
 
   const sendStatus = async () => {
     if (isEdit) {
@@ -39,6 +41,7 @@ const PostStatus = ({ currentUser }) => {
   useMemo(() => {
     getPostStatus(setAllStatus);
   }, []);
+
   return (
     <div className="base">
       <div>
@@ -63,18 +66,31 @@ const PostStatus = ({ currentUser }) => {
         </div>
         <div>
           {allStatus.map((status, i) => {
+            const setIsConnected = (bool) => {
+              return bool;
+            };
+            getConnection(
+              currentUser.UserId,
+              status.postUserId,
+              setIsConnected
+            );
+
             return (
-              <PostCard
-                currentUser={status.currentUser}
-                key={i}
-                status={status.status}
-                timeStamp={status.timeStamp}
-                userEmail={status.userEmail}
-                id={status.postId}
-                postUserId={status.postUserId}
-                editStatus={() => editStatusHandle(status)}
-                deleteStatus={() => handleDelete(status.id)}
-              />
+              setIsConnected && (
+                <PostCard
+                  currentUserName={status.currentUser}
+                  currentUserId={currentUser.UserId}
+                  key={i}
+                  status={status.status}
+                  timeStamp={status.timeStamp}
+                  userEmail={status.userEmail}
+                  id={status.postId}
+                  postUserId={status.postUserId}
+                  editStatus={() => editStatusHandle(status)}
+                  deleteStatus={() => handleDelete(status.id)}
+                  showInHome={true}
+                />
+              )
             );
           })}
         </div>

@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import "./index.scss";
 import { addConnection, getConnection } from "../../../api/fireStoreAPIs";
+import { toast } from "react-toastify";
 
 const ConnectionCard = ({ userId, id, imageLink, name, headline }) => {
   const connectTo = (targetId) => {
     addConnection(userId, targetId);
+    toast.success("Connection Added!");
   };
-  useEffect(() => {
-    getConnection(userId, id);
-  }, []);
   return (
     <div className="card-item" hidden={userId == id}>
       <div className="wrapper-profile-image">

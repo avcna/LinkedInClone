@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.scss";
 import LinkedLogo from "../../../assets/logo.png";
 import { AiOutlineHome } from "react-icons/ai";
@@ -7,9 +7,14 @@ import { BsBriefcase } from "react-icons/bs";
 import { BiSearchAlt2, BiMessageDots, BiBell } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { ProfilePopup } from "../ProfilePopup";
-const Topbar = ({ currentUser }) => {
+import { getUserByEmail } from "../../../api/fireStoreAPIs";
+const Topbar = () => {
+  const [currentUser, setCurrentUser] = useState([{ name: "user", email: "" }]);
   let navigate = useNavigate();
-
+  useEffect(
+    () => getUserByEmail(setCurrentUser, localStorage.getItem("userEmail")),
+    []
+  );
   const [popupVisibility, setPopupVisibility] = useState(false);
 
   const displayPopup = () => {
@@ -63,7 +68,7 @@ const Topbar = ({ currentUser }) => {
       <div className="wrapper-profile-logo">
         <img
           className="profile-logo"
-          src={currentUser?.imageLink}
+          src={currentUser[0]?.imageLink}
           alt="linkedin"
           onClick={displayPopup}
         />

@@ -11,7 +11,7 @@ const ConnectionLayout = () => {
 
   return (
     <div>
-      <Topbar currentUser={currentUser[0]} />
+      <Topbar />
       <Connections currentUser={currentUser[0]} />
     </div>
   );
