@@ -1,18 +1,18 @@
-.card-item{
-    width: 230px;
-    background: #fff;
-    border-radius: 8px;
-    padding: 12px;
+.card-item {
+  width: 230px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 12px;
 
-    .wrapper-profile-image {
-        width: 150px;
-        height: 150px;
-        border-radius: 100%;
-        overflow: hidden;
-        .profile-image {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
+  .wrapper-profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    overflow: hidden;
+    .profile-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 }

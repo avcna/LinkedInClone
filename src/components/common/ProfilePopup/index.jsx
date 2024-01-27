@@ -9,7 +9,7 @@ export const ProfilePopup = () => {
   const [bio, setBio] = useState({ name: "awal", headline: "awal" });
   useEffect(
     () => getUserByEmail(setBio, localStorage.getItem("userEmail")),
-    [],
+    []
   );
 
   return (
@@ -19,7 +19,14 @@ export const ProfilePopup = () => {
         <p>{bio[0]?.headline}</p>
       </div>
 
-      <button className="popup-option" onClick={() => navigate("/profile")}>
+      <button
+        className="popup-option"
+        onClick={() =>
+          navigate("/profile", {
+            state: { email: localStorage.getItem("userEmail") },
+          })
+        }
+      >
         View Profile
       </button>
       <button className="popup-option" onClick={onLogout}>

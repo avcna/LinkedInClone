@@ -72,7 +72,7 @@ const PostStatus = ({ currentUser }) => {
             getConnection(
               currentUser.UserId,
               status.postUserId,
-              setIsConnected
+              setIsConnected,
             );
 
             return (

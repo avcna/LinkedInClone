@@ -8,17 +8,23 @@ import { BiSearchAlt2, BiMessageDots, BiBell } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { ProfilePopup } from "../ProfilePopup";
 import { getUserByEmail } from "../../../api/fireStoreAPIs";
+import SearchUsers from "../SearchUsers";
 const Topbar = () => {
   const [currentUser, setCurrentUser] = useState([{ name: "user", email: "" }]);
   let navigate = useNavigate();
   useEffect(
     () => getUserByEmail(setCurrentUser, localStorage.getItem("userEmail")),
-    []
+    [],
   );
   const [popupVisibility, setPopupVisibility] = useState(false);
+  const [userVisibility, setUserVisibility] = useState(false);
 
   const displayPopup = () => {
     setPopupVisibility(!popupVisibility);
+  };
+
+  const displayUser = () => {
+    setUserVisibility(!userVisibility);
   };
 
   const goToRoute = (route) => {
@@ -34,36 +40,42 @@ const Topbar = () => {
 
       <img className="linkedin-logo" src={LinkedLogo} alt="linkedin" />
       <div className="react-icons">
-        <BiSearchAlt2
-          size={30}
-          className="react-icon"
-          onClick={() => goToRoute("/")}
-        />
-        <AiOutlineHome
-          size={30}
-          className="react-icon"
-          onClick={() => goToRoute("/")}
-        />
-        <FiUsers
-          size={30}
-          className="react-icon"
-          onClick={() => goToRoute("/connections")}
-        />
-        <BsBriefcase
-          size={30}
-          className="react-icon"
-          onClick={() => goToRoute("/")}
-        />
-        <BiMessageDots
-          size={30}
-          className="react-icon"
-          onClick={() => goToRoute("/")}
-        />
-        <BiBell
-          size={30}
-          className="react-icon"
-          onClick={() => goToRoute("/")}
-        />
+        {userVisibility ? (
+          <SearchUsers onCancel={displayUser} />
+        ) : (
+          <>
+            <BiSearchAlt2
+              size={30}
+              className="react-icon"
+              onClick={displayUser}
+            />
+            <AiOutlineHome
+              size={30}
+              className="react-icon"
+              onClick={() => goToRoute("/")}
+            />
+            <FiUsers
+              size={30}
+              className="react-icon"
+              onClick={() => goToRoute("/connections")}
+            />
+            <BsBriefcase
+              size={30}
+              className="react-icon"
+              onClick={() => goToRoute("/")}
+            />
+            <BiMessageDots
+              size={30}
+              className="react-icon"
+              onClick={() => goToRoute("/")}
+            />
+            <BiBell
+              size={30}
+              className="react-icon"
+              onClick={() => goToRoute("/")}
+            />
+          </>
+        )}
       </div>
       <div className="wrapper-profile-logo">
         <img
