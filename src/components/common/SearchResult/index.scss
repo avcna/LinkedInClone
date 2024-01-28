@@ -1,0 +1,32 @@
+.user-item{
+    padding: 8px;
+    background-color: white;
+    border: 1px solid black;
+    display: flex;
+    .img-wrapper {
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+        border: WHITE solid 10px;
+        overflow: hidden;
+        .profile-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      .info-wrapper{
+        display: flex;
+        align-items: center;
+        div{
+            height: fit-content;
+            p{
+                margin: 0;
+                font-size: 14px;
+                line-height: 14px;
+                color: black;
+            }
+            .name{font-weight: bold;}
+        }
+      }
+}

@@ -7,17 +7,26 @@ import { BsBriefcase } from "react-icons/bs";
 import { BiSearchAlt2, BiMessageDots, BiBell } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import { ProfilePopup } from "../ProfilePopup";
-import { getUserByEmail } from "../../../api/fireStoreAPIs";
+import { getAllUsers, getUserByEmail } from "../../../api/fireStoreAPIs";
 import SearchUsers from "../SearchUsers";
+import SearchResult from "../SearchResult";
 const Topbar = () => {
   const [currentUser, setCurrentUser] = useState([{ name: "user", email: "" }]);
-  let navigate = useNavigate();
-  useEffect(
-    () => getUserByEmail(setCurrentUser, localStorage.getItem("userEmail")),
-    [],
-  );
+  const [allUser, setAllUser] = useState([]);
   const [popupVisibility, setPopupVisibility] = useState(false);
   const [userVisibility, setUserVisibility] = useState(false);
+  const [search, setSearch] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState([]);
+
+  const handleSearch = (search) => {
+    setAllUser(() => allUser.filter((user) => user.name == search));
+  };
+  let navigate = useNavigate();
+  useEffect(() => {
+    getUserByEmail(setCurrentUser, localStorage.getItem("userEmail"));
+    getAllUsers(setAllUser);
+    handleSearch(search);
+  }, [search]);
 
   const displayPopup = () => {
     setPopupVisibility(!popupVisibility);
@@ -40,8 +49,18 @@ const Topbar = () => {
 
       <img className="linkedin-logo" src={LinkedLogo} alt="linkedin" />
       <div className="react-icons">
+        {userVisibility && (
+          <div className="user-list">
+            {allUser.map((user) => (
+              <SearchResult name={user.name} imageLink={user?.imageLink} />
+            ))}
+          </div>
+        )}
         {userVisibility ? (
-          <SearchUsers onCancel={displayUser} />
+          <SearchUsers
+            onCancel={displayUser}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         ) : (
           <>
             <BiSearchAlt2
