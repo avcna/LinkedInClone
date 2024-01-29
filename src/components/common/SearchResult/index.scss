@@ -1,7 +1,7 @@
 .user-item {
   padding: 8px;
   background-color: white;
-  border: 1px solid black;
+  object-fit: cover;
   display: flex;
   gap: 8px;
   .img-wrapper {
@@ -34,7 +34,7 @@
   }
 }
 
-.user-item:hover{
+.user-item:hover {
   background-color: rgb(233, 233, 233);
   cursor: pointer;
 }

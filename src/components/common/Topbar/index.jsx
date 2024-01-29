@@ -19,7 +19,8 @@ const Topbar = () => {
   const [filteredUsers, setFilteredUsers] = useState([]);
 
   const handleSearch = (search) => {
-    setAllUser(() => allUser.filter((user) => user.name == search));
+    const filteredUser = allUser.filter((user) => user.name == search);
+    setFilteredUsers(filteredUser);
   };
   let navigate = useNavigate();
   useEffect(() => {
@@ -51,9 +52,23 @@ const Topbar = () => {
       <div className="react-icons">
         {userVisibility && (
           <div className="user-list">
-            {allUser.map((user) => (
-              <SearchResult name={user.name} imageLink={user?.imageLink} />
-            ))}
+            {search.length > 0
+              ? filteredUsers.map((user, i) => (
+                  <SearchResult
+                    key={i}
+                    name={user.name}
+                    imageLink={user?.imageLink}
+                    email={user.email}
+                  />
+                ))
+              : allUser.map((user, i) => (
+                  <SearchResult
+                    key={i}
+                    name={user.name}
+                    imageLink={user?.imageLink}
+                    email={user.email}
+                  />
+                ))}
           </div>
         )}
         {userVisibility ? (
