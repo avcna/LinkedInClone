@@ -9,7 +9,7 @@ export const ProfilePopup = () => {
   const [bio, setBio] = useState({ name: "awal", headline: "awal" });
   useEffect(
     () => getUserByEmail(setBio, localStorage.getItem("userEmail")),
-    []
+    [],
   );
 
   return (
