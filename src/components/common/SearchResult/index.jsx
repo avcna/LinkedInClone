@@ -15,7 +15,7 @@ const SearchResult = ({ name, headline, imageLink, email }) => {
       <div className="info-wrapper">
         <div>
           <p className="name">{name}</p>
-          <p>headline</p>
+          <p className="headline">{headline}</p>
         </div>
       </div>
     </div>

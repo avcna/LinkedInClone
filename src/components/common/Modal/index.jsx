@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Modal } from "antd";
+import { AiOutlinePicture } from "react-icons/ai";
 import "./index.scss";
 
 const ModalComponent = ({
@@ -10,6 +11,9 @@ const ModalComponent = ({
   sendStatus,
   isEdit,
   setIsEdit,
+  setPostImg,
+  postImg,
+  uploadPostImg,
 }) => {
   return (
     <Modal
@@ -20,12 +24,14 @@ const ModalComponent = ({
         setModalOpen(false);
         setStatus("");
         setIsEdit(false);
+        setPostImg("");
       }}
       footer={[
         <Button
           onClick={() => {
             sendStatus();
             setIsEdit(false);
+            setPostImg("");
           }}
           type="primary"
           key="submit"
@@ -35,7 +41,7 @@ const ModalComponent = ({
         </Button>,
       ]}
     >
-      <input
+      <textarea
         className="modal-input"
         type="text"
         name="input-status"
@@ -43,6 +49,19 @@ const ModalComponent = ({
         onChange={(e) => setStatus(e.target.value)}
         value={status}
       />
+      <label htmlFor="upload-img">
+        <AiOutlinePicture size={30} />
+      </label>
+      <input
+        id="upload-img"
+        type="file"
+        accept="image"
+        hidden
+        onChange={(event) => uploadPostImg(event.target.files[0], setPostImg)}
+      />
+      {postImg.length > 0 && (
+        <img width={"100%"} src={postImg} alt="image selected" />
+      )}
     </Modal>
   );
 };

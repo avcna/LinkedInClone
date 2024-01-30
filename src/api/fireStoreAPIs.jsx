@@ -23,7 +23,7 @@ const likeRef = collection(firestore, "like");
 const commentRef = collection(firestore, "comment");
 const connectionRef = collection(firestore, "connections");
 
-export const PostStatusAPI = (status, currentUser) => {
+export const PostStatusAPI = (status, currentUser, postImage) => {
   const data = {
     status: status,
     timeStamp: serverTimestamp(),
@@ -31,6 +31,7 @@ export const PostStatusAPI = (status, currentUser) => {
     postId: getUniqeId(),
     currentUser: currentUser.name,
     postUserId: currentUser.UserId,
+    postImage: postImage,
   };
 
   addDoc(dbRef, data)
@@ -48,7 +49,7 @@ export const getPostStatus = (setAllStatus) => {
     setAllStatus(
       response.docs.map((docs) => {
         return { ...docs.data(), id: docs.id };
-      }),
+      })
     );
   });
 };
@@ -59,7 +60,7 @@ export const getPostStatusByEmail = (setAllStatus, email) => {
     setAllStatus(
       response.docs.map((docs) => {
         return { ...docs.data(), id: docs.id };
-      }),
+      })
     );
     // console.log(response);
   });
@@ -107,7 +108,7 @@ export const getUserByEmail = (setCurrentUser, email) => {
     setCurrentUser(
       response.docs.map((docs) => {
         return { ...docs.data(), UserId: docs.id };
-      }),
+      })
     );
   });
 };
@@ -118,7 +119,7 @@ export const getAllUsers = (setAllUsers) => {
     setAllUsers(
       response.docs.map((docs) => {
         return { ...docs.data(), id: docs.id };
-      }),
+      })
     );
   });
 };
@@ -127,12 +128,12 @@ export const editProfile = (userId, payload) => {
   let userToEdit = doc(userRef, userId);
   const q = query(
     dbRef,
-    where("userEmail", "==", localStorage.getItem("userEmail")),
+    where("userEmail", "==", localStorage.getItem("userEmail"))
   );
 
   const qc = query(
     commentRef,
-    where("userEmail", "==", localStorage.getItem("userEmail")),
+    where("userEmail", "==", localStorage.getItem("userEmail"))
   );
 
   updateDoc(userToEdit, payload)
@@ -232,7 +233,7 @@ export const getComment = (postId, setComments) => {
   try {
     let comments = query(
       commentRef,
-      where("postId", "==", postId),
+      where("postId", "==", postId)
       // orderBy("timeStamp", "desc")
     );
     onSnapshot(comments, (response) => {

@@ -10,6 +10,7 @@ import {
   getConnection,
 } from "../../../api/fireStoreAPIs";
 import PostCard from "../PostCard.jsx";
+import { ImagePostUpload } from "../../../api/ImageUpload.jsx";
 
 const PostStatus = ({ currentUser }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -17,13 +18,13 @@ const PostStatus = ({ currentUser }) => {
   const [allStatus, setAllStatus] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [currentPost, setCurrentPost] = useState({});
-  // const [isConnected, setIsConnected] = useState("");
+  const [postImg, setPostImg] = useState({});
 
   const sendStatus = async () => {
     if (isEdit) {
       await editStatus(currentPost.id, status);
     } else {
-      await PostStatusAPI(status, currentUser);
+      await PostStatusAPI(status, currentUser, postImg);
     }
     await setModalOpen(false);
     await setStatus("");
@@ -40,7 +41,7 @@ const PostStatus = ({ currentUser }) => {
   };
   useMemo(() => {
     getPostStatus(setAllStatus);
-  }, []);
+  }, [postImg]);
 
   return (
     <div className="base">
@@ -62,6 +63,9 @@ const PostStatus = ({ currentUser }) => {
             sendStatus={sendStatus}
             isEdit={isEdit}
             setIsEdit={setIsEdit}
+            uploadPostImg={ImagePostUpload}
+            setPostImg={setPostImg}
+            postImg={postImg}
           />
         </div>
         <div>
@@ -72,7 +76,7 @@ const PostStatus = ({ currentUser }) => {
             getConnection(
               currentUser.UserId,
               status.postUserId,
-              setIsConnected,
+              setIsConnected
             );
 
             return (
@@ -89,6 +93,7 @@ const PostStatus = ({ currentUser }) => {
                   editStatus={() => editStatusHandle(status)}
                   deleteStatus={() => handleDelete(status.id)}
                   showInHome={true}
+                  postImage={status.postImage}
                 />
               )
             );

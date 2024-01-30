@@ -59,6 +59,7 @@ const Topbar = () => {
                     name={user.name}
                     imageLink={user?.imageLink}
                     email={user.email}
+                    headline={user?.headline}
                   />
                 ))
               : allUser.map((user, i) => (
@@ -67,6 +68,7 @@ const Topbar = () => {
                     name={user.name}
                     imageLink={user?.imageLink}
                     email={user.email}
+                    headline={user?.headline}
                   />
                 ))}
           </div>
