@@ -10,6 +10,7 @@ import { useLocation } from "react-router-dom";
 import { BiPencil } from "react-icons/bi";
 import FileUploadModal from "../FileUploadModal/index.jsx";
 import ModalComponent from "../Modal/index.jsx";
+import { ImagePostUpload } from "../../../api/ImageUpload.jsx";
 
 const ProfileCard = ({ currentUser, onEdit }) => {
   let location = useLocation();
@@ -20,6 +21,7 @@ const ProfileCard = ({ currentUser, onEdit }) => {
   const [status, setStatus] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [currentPost, setCurrentPost] = useState({});
+  const [postImg, setPostImg] = useState({});
 
   const handleDelete = (id) => {
     deleteStatus(id);
@@ -56,6 +58,9 @@ const ProfileCard = ({ currentUser, onEdit }) => {
         sendStatus={sendStatus}
         isEdit={isEdit}
         setIsEdit={setIsEdit}
+        uploadPostImg={ImagePostUpload}
+        setPostImg={setPostImg}
+        postImg={postImg}
       />
 
       <div className="profile-card">
@@ -132,6 +137,7 @@ const ProfileCard = ({ currentUser, onEdit }) => {
                 postUserId={status?.postUserId}
                 editStatus={() => editStatusHandle(status)}
                 deleteStatus={() => handleDelete(status?.id)}
+                postImage={status?.postImage}
               />
             );
           })}

@@ -93,7 +93,7 @@ const PostStatus = ({ currentUser }) => {
                   editStatus={() => editStatusHandle(status)}
                   deleteStatus={() => handleDelete(status.id)}
                   showInHome={true}
-                  postImage={status.postImage}
+                  postImage={status?.postImage}
                 />
               )
             );

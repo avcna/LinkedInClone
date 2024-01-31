@@ -6,3 +6,32 @@
   font-size: 16px;
   font-family: system-ui;
 }
+@keyframes pulse {
+  0%, 100% {
+    background-color: #e5e7eb; /* Set your background color */
+  }
+  50% {
+    background-color: #f3f4f6; /* Set a slightly lighter color */
+  }
+}
+
+.skeleton-wrapper {
+  box-sizing: border-box;
+  animation: pulse 1.5s infinite;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 250px;
+  padding: 20px;
+}
+
+.img-wrapper{
+  overflow: hidden;
+  height: 250px;
+  width: 100%;
+  img{
+    object-fit: cover;
+  }
+}
+

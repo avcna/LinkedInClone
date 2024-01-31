@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal } from "antd";
+import { Button, Modal, Progress, Space } from "antd";
 import { AiOutlinePicture } from "react-icons/ai";
 import "./index.scss";
 
@@ -15,6 +15,8 @@ const ModalComponent = ({
   postImg,
   uploadPostImg,
 }) => {
+  const [progress, setProgress] = useState(0);
+  const [showSkeleton, setShowSkeleton] = useState(false);
   return (
     <Modal
       title={isEdit ? "Edit Post" : "Create a post"}
@@ -24,14 +26,17 @@ const ModalComponent = ({
         setModalOpen(false);
         setStatus("");
         setIsEdit(false);
-        setPostImg("");
+        setPostImg({});
+        setProgress(0);
+        setShowSkeleton(false);
       }}
       footer={[
         <Button
           onClick={() => {
             sendStatus();
             setIsEdit(false);
-            setPostImg("");
+            setPostImg({});
+            setShowSkeleton(false);
           }}
           type="primary"
           key="submit"
@@ -49,7 +54,14 @@ const ModalComponent = ({
         onChange={(e) => setStatus(e.target.value)}
         value={status}
       />
-      <label htmlFor="upload-img">
+      <label
+        htmlFor="upload-img"
+        onClick={() => {
+          setPostImg({});
+          setProgress(0);
+          setShowSkeleton(true);
+        }}
+      >
         <AiOutlinePicture size={30} />
       </label>
       <input
@@ -57,10 +69,23 @@ const ModalComponent = ({
         type="file"
         accept="image"
         hidden
-        onChange={(event) => uploadPostImg(event.target.files[0], setPostImg)}
+        onChange={(event) =>
+          uploadPostImg(event.target.files[0], setPostImg, setProgress)
+        }
       />
-      {postImg.length > 0 && (
-        <img width={"100%"} src={postImg} alt="image selected" />
+
+      {Object.keys(postImg).length > 0 ? (
+        <div className="img-wrapper">
+          <img width={"100%"} src={postImg} alt="image selected" />
+        </div>
+      ) : (
+        showSkeleton && (
+          <div className="skeleton-wrapper">
+            <Space wrap>
+              <Progress type="circle" percent={progress} size={25} />
+            </Space>
+          </div>
+        )
       )}
     </Modal>
   );

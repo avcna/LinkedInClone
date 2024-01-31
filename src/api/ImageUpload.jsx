@@ -6,7 +6,7 @@ export const ImageUpload = (file, id) => {
   const profilePicsRef = ref(storage, `files/${file.name}`);
   const uploadTask = uploadBytesResumable(profilePicsRef, file);
   uploadTask.on(
-    "state changed",
+    "state_changed",
     (snapshot) => {
       const progress =
         Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -25,10 +25,12 @@ export const ImagePostUpload = (file, setPostImg, setProgress) => {
   const postPicsRef = ref(storage, `files/${file.name}`);
   const uploadTask = uploadBytesResumable(postPicsRef, file);
   uploadTask.on(
-    "state changed",
+    "state_changed",
     (snapshot) => {
-      const progress =
-        Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      const progress = Math.round(
+        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      );
+      setProgress(progress);
     },
     (error) => {
       console.error(error);
