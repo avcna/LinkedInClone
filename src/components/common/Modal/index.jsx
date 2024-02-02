@@ -40,7 +40,7 @@ const ModalComponent = ({
           }}
           type="primary"
           key="submit"
-          disabled={status.length > 0 ? false : true}
+          disabled={status.length > 0 || postImg.length > 0 ? false : true}
         >
           {isEdit ? "Edit" : "Post"}
         </Button>,
