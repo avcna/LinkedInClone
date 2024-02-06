@@ -30,8 +30,32 @@
   overflow: hidden;
   height: 250px;
   width: 100%;
+  position: relative;
+  .onclose-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 12px;
+    height: 12px;
+    padding: 4px;
+    border-radius: 100%;
+    background-color: rgba(255, 33, 33, 0.829);
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    color: white;
+  }
+  .onclose-img:hover{
+    background-color: rgb(255, 33, 33);
+    cursor: pointer;
+  }
   img{
     object-fit: cover;
+  }
+  .filename{
+    display: inline;
+    color: rgb(146, 146, 146);
+    font-size: 12px;
   }
 }
 

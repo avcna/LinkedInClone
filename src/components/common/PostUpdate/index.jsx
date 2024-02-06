@@ -19,12 +19,13 @@ const PostStatus = ({ currentUser }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [currentPost, setCurrentPost] = useState({});
   const [postImg, setPostImg] = useState({});
+  const [filename, setFilename] = useState("");
 
   const sendStatus = async () => {
     if (isEdit) {
-      await editStatus(currentPost.id, status);
+      await editStatus(currentPost.id, status, postImg, filename);
     } else {
-      await PostStatusAPI(status, currentUser, postImg);
+      await PostStatusAPI(status, currentUser, postImg, filename);
     }
     await setModalOpen(false);
     await setStatus("");
@@ -34,6 +35,8 @@ const PostStatus = ({ currentUser }) => {
     setModalOpen(true);
     setIsEdit(true);
     setCurrentPost(post);
+    setFilename(post.filename);
+    setPostImg(post.postImage);
   };
 
   const handleDelete = (id) => {
@@ -66,6 +69,8 @@ const PostStatus = ({ currentUser }) => {
             uploadPostImg={ImagePostUpload}
             setPostImg={setPostImg}
             postImg={postImg}
+            setFilename={setFilename}
+            filename={filename}
           />
         </div>
         <div>

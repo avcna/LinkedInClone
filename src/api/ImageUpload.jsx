@@ -21,7 +21,7 @@ export const ImageUpload = (file, id) => {
   );
 };
 
-export const ImagePostUpload = (file, setPostImg, setProgress) => {
+export const ImagePostUpload = (file, setPostImg, setProgress, setFilename) => {
   const postPicsRef = ref(storage, `files/${file.name}`);
   const uploadTask = uploadBytesResumable(postPicsRef, file);
   uploadTask.on(
@@ -36,8 +36,9 @@ export const ImagePostUpload = (file, setPostImg, setProgress) => {
       console.error(error);
     },
     () =>
-      getDownloadURL(uploadTask.snapshot.ref).then((response) =>
-        setPostImg(response)
-      )
+      getDownloadURL(uploadTask.snapshot.ref).then((response) => {
+        setPostImg(response);
+        setFilename(file.name);
+      })
   );
 };

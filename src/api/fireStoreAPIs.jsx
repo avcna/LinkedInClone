@@ -23,7 +23,7 @@ const likeRef = collection(firestore, "like");
 const commentRef = collection(firestore, "comment");
 const connectionRef = collection(firestore, "connections");
 
-export const PostStatusAPI = (status, currentUser, postImage) => {
+export const PostStatusAPI = (status, currentUser, postImage, filename) => {
   const data = {
     status: status,
     timeStamp: serverTimestamp(),
@@ -32,6 +32,7 @@ export const PostStatusAPI = (status, currentUser, postImage) => {
     currentUser: currentUser.name,
     postUserId: currentUser.UserId,
     postImage: postImage,
+    filename: filename,
   };
 
   addDoc(dbRef, data)
@@ -66,11 +67,13 @@ export const getPostStatusByEmail = (setAllStatus, email) => {
   });
 };
 
-export const editStatus = (postId, payload) => {
+export const editStatus = (postId, status, postImg, filename) => {
   let docToEdit = doc(dbRef, postId);
   try {
     updateDoc(docToEdit, {
-      status: payload,
+      status: status,
+      postImage: postImg,
+      filename: filename,
       timeStamp: serverTimestamp(),
     }).then(() => {
       toast.success("Data updated successfully");

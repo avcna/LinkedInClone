@@ -13,14 +13,17 @@ const ModalComponent = ({
   setIsEdit,
   setPostImg,
   postImg,
+  setFilename,
+  filename,
   uploadPostImg,
+  deleteImg,
 }) => {
   const [progress, setProgress] = useState(0);
   const [showSkeleton, setShowSkeleton] = useState(false);
   return (
     <Modal
       title={isEdit ? "Edit Post" : "Create a post"}
-      style={{ bottom: "30%" }}
+      style={{ overflow: "auto" }}
       open={modalOpen}
       onCancel={() => {
         setModalOpen(false);
@@ -70,13 +73,22 @@ const ModalComponent = ({
         accept="image"
         hidden
         onChange={(event) =>
-          uploadPostImg(event.target.files[0], setPostImg, setProgress)
+          uploadPostImg(
+            event.target.files[0],
+            setPostImg,
+            setProgress,
+            setFilename
+          )
         }
       />
 
       {Object.keys(postImg).length > 0 ? (
         <div className="img-wrapper">
+          <div className="onclose-img" onClick={deleteImg}>
+            X
+          </div>
           <img width={"100%"} src={postImg} alt="image selected" />
+          {filename && <p className="filename">{filename}</p>}
         </div>
       ) : (
         showSkeleton && (
