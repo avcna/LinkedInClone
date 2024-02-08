@@ -84,7 +84,7 @@ const PostCard = ({
         </div>
       </div>
       <p className="status">{status}</p>
-      {postImage && <img width={"100%"} src={postImage} />}
+      {postImage !== "" && <img width={"100%"} src={postImage} />}
       <hr />
       <LikeButton
         userId={user[0]?.UserId}

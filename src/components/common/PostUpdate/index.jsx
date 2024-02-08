@@ -18,7 +18,7 @@ const PostStatus = ({ currentUser }) => {
   const [allStatus, setAllStatus] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
   const [currentPost, setCurrentPost] = useState({});
-  const [postImg, setPostImg] = useState({});
+  const [postImg, setPostImg] = useState("");
   const [filename, setFilename] = useState("");
 
   const sendStatus = async () => {
@@ -41,6 +41,10 @@ const PostStatus = ({ currentUser }) => {
 
   const handleDelete = (id) => {
     deleteStatus(id);
+  };
+  const deleteImage = () => {
+    setPostImg("");
+    setFilename("");
   };
   useMemo(() => {
     getPostStatus(setAllStatus);
@@ -71,6 +75,7 @@ const PostStatus = ({ currentUser }) => {
             postImg={postImg}
             setFilename={setFilename}
             filename={filename}
+            deleteImg={deleteImage}
           />
         </div>
         <div>

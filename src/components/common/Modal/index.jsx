@@ -23,7 +23,7 @@ const ModalComponent = ({
   return (
     <Modal
       title={isEdit ? "Edit Post" : "Create a post"}
-      style={{ overflow: "auto" }}
+      style={{ top: "5%", maxHeight: "calc(100vh - 200px)" }}
       open={modalOpen}
       onCancel={() => {
         setModalOpen(false);
@@ -60,7 +60,7 @@ const ModalComponent = ({
       <label
         htmlFor="upload-img"
         onClick={() => {
-          setPostImg({});
+          setPostImg("");
           setProgress(0);
           setShowSkeleton(true);
         }}
@@ -84,7 +84,13 @@ const ModalComponent = ({
 
       {Object.keys(postImg).length > 0 ? (
         <div className="img-wrapper">
-          <div className="onclose-img" onClick={deleteImg}>
+          <div
+            className="onclose-img"
+            onClick={() => {
+              deleteImg();
+              setShowSkeleton(false);
+            }}
+          >
             X
           </div>
           <img width={"100%"} src={postImg} alt="image selected" />
