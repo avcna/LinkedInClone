@@ -29,36 +29,42 @@ const RegisterComponent = () => {
       <div className="wrapper">
         <div className="login-wrapper-inner">
           <h1 className="heading">Make the most of your professional life</h1>
-          <p className="sub-heading">Stay updated on your professional world</p>
-          <div className="auth-inputs">
-            <input
-              type="text"
-              className="common-input"
-              placeholder="Your Name"
-              onChange={(e) =>
-                setCredentials({ ...credentials, name: e.target.value })
-              }
-            />
-            <input
-              type="email"
-              className="common-input"
-              placeholder="Email or Phone"
-              onChange={(e) =>
-                setCredentials({ ...credentials, email: e.target.value })
-              }
-            />
-            <input
-              type="password"
-              className="common-input"
-              placeholder="Password"
-              onChange={(e) =>
-                setCredentials({ ...credentials, password: e.target.value })
-              }
-            />
+
+          <div className="flex">
+            <div className="auth-inputs">
+              {" "}
+              <p className="sub-heading">
+                Stay updated on your professional world
+              </p>
+              <input
+                type="text"
+                className="common-input"
+                placeholder="Your Name"
+                onChange={(e) =>
+                  setCredentials({ ...credentials, name: e.target.value })
+                }
+              />
+              <input
+                type="email"
+                className="common-input"
+                placeholder="Email or Phone"
+                onChange={(e) =>
+                  setCredentials({ ...credentials, email: e.target.value })
+                }
+              />
+              <input
+                type="password"
+                className="common-input"
+                placeholder="Password"
+                onChange={(e) =>
+                  setCredentials({ ...credentials, password: e.target.value })
+                }
+              />
+              <button onClick={login} className="login-btn">
+                Agree & Join
+              </button>
+            </div>
           </div>
-          <button onClick={login} className="login-btn">
-            Agree & Join
-          </button>
         </div>
       </div>
       <hr className="hr-text" data-content="or" />

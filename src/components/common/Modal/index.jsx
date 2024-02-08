@@ -29,7 +29,7 @@ const ModalComponent = ({
         setModalOpen(false);
         setStatus("");
         setIsEdit(false);
-        setPostImg({});
+        setPostImg("");
         setProgress(0);
         setShowSkeleton(false);
       }}
@@ -38,7 +38,7 @@ const ModalComponent = ({
           onClick={() => {
             sendStatus();
             setIsEdit(false);
-            setPostImg({});
+            setPostImg("");
             setShowSkeleton(false);
           }}
           type="primary"
