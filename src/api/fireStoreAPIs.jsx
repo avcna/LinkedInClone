@@ -218,7 +218,7 @@ export const getLikesByUser = (userId, postId, setLikesCount, setIsLiked) => {
   }
 };
 
-export const postComment = (postId, comment, name) => {
+export const postComment = (postId, comment, name, foto) => {
   try {
     addDoc(commentRef, {
       name,
@@ -226,6 +226,7 @@ export const postComment = (postId, comment, name) => {
       comment,
       timeStamp: serverTimestamp(),
       userEmail: localStorage.getItem("userEmail"),
+      imageLink: foto,
     });
   } catch (error) {
     console.log(error);

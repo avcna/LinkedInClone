@@ -9,8 +9,10 @@ import {
   getComment,
 } from "../../../api/fireStoreAPIs";
 import { IoSendSharp } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
-const LikeButton = ({ userId, postId, currentUser }) => {
+const LikeButton = ({ userId, postId, currentUser, foto }) => {
+  let navigate = useNavigate();
   const [likesCount, setLikesCount] = useState(0);
   const [isLiked, setIsLiked] = useState(false);
   const [showComment, setShowComment] = useState(false);
@@ -23,7 +25,7 @@ const LikeButton = ({ userId, postId, currentUser }) => {
     setComment(event.target.value);
   };
   const addComment = () => {
-    postComment(postId, comment, currentUser);
+    postComment(postId, comment, currentUser, foto);
     setComment("");
   };
 
@@ -60,8 +62,19 @@ const LikeButton = ({ userId, postId, currentUser }) => {
           <div className="comment-card-wrapper">
             {listComment?.map((c) => (
               <div className="comment-card">
-                <h4>{c.name}</h4>
-                <p>{c.comment} </p>
+                <div className="img-wrapper">
+                  <img src={c?.imageLink} alt="" />
+                </div>
+                <div className="profile-info">
+                  <h4
+                    onClick={() =>
+                      navigate("/profile", { state: { email: c.userEmail } })
+                    }
+                  >
+                    {c.name}
+                  </h4>
+                  <p>{c.comment} </p>
+                </div>
               </div>
             ))}
           </div>

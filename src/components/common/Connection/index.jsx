@@ -16,7 +16,9 @@ const ConnectionCard = ({ userId, id, imageLink, name, headline }) => {
       </div>
       <p>{name}</p>
       <p>{headline}</p>
-      <button onClick={() => connectTo(id)}>Connect</button>
+      <button className="connect-btn" onClick={() => connectTo(id)}>
+        Connect
+      </button>
     </div>
   );
 };

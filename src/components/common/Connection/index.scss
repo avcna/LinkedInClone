@@ -3,7 +3,14 @@
   background: #fff;
   border-radius: 8px;
   padding: 12px;
-
+  .connect-btn{
+    width: 100%;
+    border: 2px solid #0073b1;
+    padding: 8px;
+    background-color: aliceblue;
+    border-radius: 20px;
+    cursor: pointer;
+  }
   .wrapper-profile-image {
     width: 150px;
     height: 150px;

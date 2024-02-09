@@ -90,6 +90,7 @@ const PostCard = ({
         userId={user[0]?.UserId}
         postId={id}
         currentUser={user[0]?.name}
+        foto={user[0]?.imageLink}
       />
     </div>
   );
