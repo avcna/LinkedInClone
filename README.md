@@ -3,6 +3,7 @@
 Features :
 - Login
 - Sign Up
+- Logout
 - Add Post
 - Edit Post
 - Delete Post
