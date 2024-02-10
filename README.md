@@ -7,6 +7,7 @@ Features :
 - Add Post
 - Edit Post
 - Delete Post
+- Like Post
 - Comment Post
 - Connect with other users
 - Search user
